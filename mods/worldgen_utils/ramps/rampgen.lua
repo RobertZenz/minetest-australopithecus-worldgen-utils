@@ -152,6 +152,14 @@ function rampgen.run_on_node(manipulator, x, z, y, is_air, nodes)
 	local above_air = is_air(manipulator:get_node(x, z, y - 1))
 	local below_air = is_air(manipulator:get_node(x, z, y + 1))
 	
+	if node_info.param_floor ~= nil and not node_info.param_floor then
+		below_air = false;
+	end
+	
+	if node_info.param_ceiling ~= nil and not node_info.param_ceiling then
+		above_air = false;
+	end
+	
 	-- Either have air below or above it, but not both and not neither.
 	if above_air ~= below_air then
 		--  -- ?- +-

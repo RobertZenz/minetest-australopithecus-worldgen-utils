@@ -162,6 +162,8 @@ function ramputil.register_ramps_for_node(node, base_name, use_mesh, nodebox_det
 	
 	local ramp_lookup = {}
 	ramp_lookup[minetest.get_content_id(node.name)] = {
+		param_floor = true,
+		param_ceiling = true,
 		ramp = minetest.get_content_id(base_name .. "_ramp"),
 		inner = minetest.get_content_id(base_name .. "_inner_ramp"),
 		outer = minetest.get_content_id(base_name .. "_outer_corner_ramp")
