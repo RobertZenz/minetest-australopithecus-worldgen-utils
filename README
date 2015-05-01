@@ -1,0 +1,29 @@
+minetest-australopithecus-worldgen-utils
+========================================
+
+A util collection for everything around the mapgen.
+
+
+Ramps
+-----
+
+The Ramps mod allwos to easily create, register and place ramps in the world
+during or after world generation. You can even inject ramps into already
+existing games, for example minetest-game. You simply need to add something like
+this to the init.lua (and copy the worldgen-utils mode into the game,
+obviously):
+
+    local nodes = {}
+
+    nodes = tableutil.merge(nodes, ramputil.register_ramps_for_node("default:dirt_with_grass", "worldgen_utils:dirt_with_grass", true, 6))
+    nodes = tableutil.merge(nodes, ramputil.register_ramps_for_node("default:stone", "worldgen_utils:stone", true, 6))
+    nodes = tableutil.merge(nodes, ramputil.register_ramps_for_node("default:dirt", "worldgen_utils:dirt", true, 6))
+    
+    minetest.register_on_generated(function(minp, maxp, seed)
+    	local manipulator = MapManipulator:new()
+    	
+    	rampmaker.run(manipulator, minp, maxp, nodes)
+    	
+    	manipulator:set_data()
+    end)
+
