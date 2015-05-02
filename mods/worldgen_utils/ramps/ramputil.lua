@@ -55,6 +55,35 @@ function ramputil.create_inner_corner_nodebox(detail)
 	return nodebox
 end
 
+--- Creates the lookup table for the given nodes which is used by rampgen.
+--
+-- @param node_name The name of the node,
+-- @param ramp_name The name of the ramp.
+-- @param inner_corner_name The name of the inner corner part.
+-- @param outer_corner_name The name of the outer corner part.
+-- @return The lookup table for these nodes.
+function ramputil.create_lookup_table(node_name, ramp_name, inner_corner_name, outer_corner_name)
+	local node_id = minetest.get_content_id(node_name)
+	local ramp_id = minetest.get_content_id(ramp_name)
+	local inner_corner_id = minetest.get_content_id(inner_corner_name)
+	local outer_corner_id = minetest.get_content_id(outer_corner_name)
+	
+	local ramp_lookup = {}
+	ramp_lookup[node_id] = {
+		node = node_id,
+		param_floor = true,
+		param_ceiling = true,
+		ramp = ramp_id,
+		inner = inner_corner_id,
+		outer = outer_corner_id
+	}
+	ramp_lookup[ramp_id] = ramp_lookup[node_id]
+	ramp_lookup[inner_corner_id] = ramp_lookup[node_id]
+	ramp_lookup[outer_corner_id] = ramp_lookup[node_id]
+	
+	return ramp_lookup
+end
+
 --- Creates the nodebox for an outer corner.
 --
 -- @param detail The level of detail, basically how many steps the ramp will
@@ -160,21 +189,11 @@ function ramputil.register_ramps_for_node(node, base_name, use_mesh, nodebox_det
 	minetest.register_node(base_name .. "_inner_corner_ramp", inner_corner)
 	minetest.register_node(base_name .. "_outer_corner_ramp", outer_corner)
 	
-	local id = minetest.get_content_id(node.name)
-	
-	local ramp_lookup = {}
-	ramp_lookup[id] = {
-		node = id,
-		param_floor = true,
-		param_ceiling = true,
-		ramp = minetest.get_content_id(base_name .. "_ramp"),
-		inner = minetest.get_content_id(base_name .. "_inner_corner_ramp"),
-		outer = minetest.get_content_id(base_name .. "_outer_corner_ramp")
-	}
-	ramp_lookup[minetest.get_content_id(base_name .. "_ramp")] = ramp_lookup[id]
-	ramp_lookup[minetest.get_content_id(base_name .. "_inner_corner_ramp")] = ramp_lookup[id]
-	ramp_lookup[minetest.get_content_id(base_name .. "_outer_corner_ramp")] = ramp_lookup[id]
-	
-	return ramp_lookup
+	return ramputil.create_lookup_table(
+		node.name,
+		base_name .. "_ramp",
+		base_name .. "_inner_corner_ramp",
+		base_name .. "_outer_corner_ramp"
+	)
 end
 
