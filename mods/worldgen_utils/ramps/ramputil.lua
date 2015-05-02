@@ -98,7 +98,7 @@ function ramputil.create_ramp_from_node(node, use_mesh, nodebox_detail)
 		fixed = ramputil.create_ramp_nodebox(nodebox_detail),
 		type = "fixed"
 	}
-	
+	ramp.after_dig_node = after
 	if use_mesh then
 		ramp.drawtype = "mesh"
 		ramp.mesh = "ramp.obj"
@@ -157,17 +157,23 @@ function ramputil.register_ramps_for_node(node, base_name, use_mesh, nodebox_det
 	local ramp, inner_corner, outer_corner = ramputil.create_ramp_from_node(node, use_mesh, nodebox_detail)
 
 	minetest.register_node(base_name .. "_ramp", ramp)
-	minetest.register_node(base_name .. "_inner_ramp", inner_corner)
+	minetest.register_node(base_name .. "_inner_corner_ramp", inner_corner)
 	minetest.register_node(base_name .. "_outer_corner_ramp", outer_corner)
 	
+	local id = minetest.get_content_id(node.name)
+	
 	local ramp_lookup = {}
-	ramp_lookup[minetest.get_content_id(node.name)] = {
+	ramp_lookup[id] = {
+		node = id,
 		param_floor = true,
 		param_ceiling = true,
 		ramp = minetest.get_content_id(base_name .. "_ramp"),
-		inner = minetest.get_content_id(base_name .. "_inner_ramp"),
+		inner = minetest.get_content_id(base_name .. "_inner_corner_ramp"),
 		outer = minetest.get_content_id(base_name .. "_outer_corner_ramp")
 	}
+	ramp_lookup[minetest.get_content_id(base_name .. "_ramp")] = ramp_lookup[id]
+	ramp_lookup[minetest.get_content_id(base_name .. "_inner_corner_ramp")] = ramp_lookup[id]
+	ramp_lookup[minetest.get_content_id(base_name .. "_outer_corner_ramp")] = ramp_lookup[id]
 	
 	return ramp_lookup
 end
