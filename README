@@ -27,3 +27,17 @@ obviously):
     	manipulator:set_data()
     end)
 
+You can also register an ABM/callback on some node and use the run_on_node function directly:
+
+    some_node.after_dig_node(function(pos, oldnode, oldmetadata, digger)
+    	local manipulator = DirectMapManipulator:new()
+    
+    	for x = pos.x - 1, pos.x + 1, 1 do
+    		for z = pos.z - 1, pos.z + 1, 1 do
+    			for y = pos.y - 1, pos.y + 1, 1 do
+    				rampgen.run_on_node(manipulator, x, z, y, nodes)
+    			end
+    		end
+    	end
+    end
+
