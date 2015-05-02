@@ -155,6 +155,10 @@ function rampgen.run_on_node(manipulator, x, z, y, nodes)
 		return
 	end
 	
+	if rampgen.templates == nil then
+		rampgen.init_templates()
+	end
+	
 	local above_air = rampgen.is_air(manipulator:get_node(x, z, y - 1))
 	local below_air = rampgen.is_air(manipulator:get_node(x, z, y + 1))
 	
@@ -165,6 +169,8 @@ function rampgen.run_on_node(manipulator, x, z, y, nodes)
 	if node_info.param_ceiling ~= nil and not node_info.param_ceiling then
 		above_air = false;
 	end
+	
+	local ramp_placed = false
 	
 	-- Either have air below or above it, but not both and not neither.
 	if above_air ~= below_air then
@@ -247,8 +253,14 @@ function rampgen.run_on_node(manipulator, x, z, y, nodes)
 				local facedir = rotationutil.facedir(axis, rotation)
 				
 				manipulator:set_node(x, z, y, node_ramp, facedir)
+				
+				ramp_placed = true
 			end
 		end)
+	end
+	
+	if not ramp_placed and node ~= node_info.node then
+		manipulator:set_node(x, z, y, node_info.node, nil)
 	end
 end
 
