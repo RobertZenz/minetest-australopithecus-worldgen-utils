@@ -22,7 +22,7 @@ obviously):
     minetest.register_on_generated(function(minp, maxp, seed)
     	local manipulator = MapManipulator:new()
     	
-    	rampmaker.run(manipulator, minp, maxp, nodes)
+    	rampgen.run(manipulator, minp, maxp, nodes)
     	
     	manipulator:set_data()
     end)
