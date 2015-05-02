@@ -68,6 +68,18 @@ function rampgen.init_templates()
 	})
 end
 
+--- Checks if the given node is "air".
+--
+-- @param node The node to check.
+-- @return true if the node is air.
+function rampgen.is_air(node)
+	if rampgen.air == nil then
+		rampgen.air = minetest.get_content_id("air")
+	end
+	
+	return node == rampgen.air
+end
+
 --- Equals function for the mask values.
 --
 -- @param actual The atual value, generated from the map.
@@ -104,16 +116,11 @@ function rampgen.run(manipulator, minp, maxp, nodes)
 		rampgen.init_templates()
 	end
 	
-	local air = minetest.get_content_id("air")
-	local is_air = function(node)
-		return node == air
-	end
-	
 	for y = minp.y, maxp.y, 1 do
 		for x = minp.x, maxp.x, 1 do
 			for z = minp.z, maxp.z, 1 do
-				if not is_air(manipulator:get_node(x, z, y)) then
-					rampgen.run_on_node(manipulator, x, z, y, is_air, nodes)
+				if not rampgen.is_air(manipulator:get_node(x, z, y)) then
+					rampgen.run_on_node(manipulator, x, z, y, nodes)
 				end	
 			end
 		end
@@ -126,7 +133,6 @@ end
 -- @param x The x coordinate.
 -- @param z The z coordinate.
 -- @param y The y coordinate.
--- @param is_air The function that is used to determine if a node is air.
 -- @param nodes The lookup table for the ramp creation. The lookup table
 --        consists of entries with the ID of the node as key and the three
 --        ramps. Example:
@@ -136,10 +142,10 @@ end
 --                ramp = ramp_node,
 --                inner = inner_corner_node,
 --                outer = outer_corner_node }}
-function rampgen.run_on_node(manipulator, x, z, y, is_air, nodes)
+function rampgen.run_on_node(manipulator, x, z, y, nodes)
 	local node = manipulator:get_node(x, z, y)
 	
-	if is_air(node) then
+	if rampgen.is_air(node) then
 		return
 	end
 	
@@ -149,8 +155,8 @@ function rampgen.run_on_node(manipulator, x, z, y, is_air, nodes)
 		return
 	end
 	
-	local above_air = is_air(manipulator:get_node(x, z, y - 1))
-	local below_air = is_air(manipulator:get_node(x, z, y + 1))
+	local above_air = rampgen.is_air(manipulator:get_node(x, z, y - 1))
+	local below_air = rampgen.is_air(manipulator:get_node(x, z, y + 1))
 	
 	if node_info.param_floor ~= nil and not node_info.param_floor then
 		below_air = false;
@@ -166,14 +172,14 @@ function rampgen.run_on_node(manipulator, x, z, y, is_air, nodes)
 		--  -?    +?
 		--  -+ ?+ ++
 		local node_mask = {
-			is_air(manipulator:get_node(x - 1, z - 1, y)),
-			is_air(manipulator:get_node(x, z - 1, y)),
-			is_air(manipulator:get_node(x + 1, z - 1, y)),
-			is_air(manipulator:get_node(x + 1, z, y)),
-			is_air(manipulator:get_node(x + 1, z + 1, y)),
-			is_air(manipulator:get_node(x, z + 1, y)),
-			is_air(manipulator:get_node(x - 1, z + 1, y)),
-			is_air(manipulator:get_node(x - 1, z, y))
+			rampgen.is_air(manipulator:get_node(x - 1, z - 1, y)),
+			rampgen.is_air(manipulator:get_node(x, z - 1, y)),
+			rampgen.is_air(manipulator:get_node(x + 1, z - 1, y)),
+			rampgen.is_air(manipulator:get_node(x + 1, z, y)),
+			rampgen.is_air(manipulator:get_node(x + 1, z + 1, y)),
+			rampgen.is_air(manipulator:get_node(x, z + 1, y)),
+			rampgen.is_air(manipulator:get_node(x - 1, z + 1, y)),
+			rampgen.is_air(manipulator:get_node(x - 1, z, y))
 		}
 		
 		rampgen.templates:foreach(function(template, index)
