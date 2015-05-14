@@ -25,9 +25,52 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --]]
 
 
-base_path = minetest.get_modpath(minetest.get_current_modname())
+--- Provides various utility functions for generation worlds.
+worldgenutil = {}
 
-dofile(base_path .. "/worldgenutil.lua")
-dofile(base_path .. "/ramps/rampgen.lua")
-dofile(base_path .. "/ramps/ramputil.lua")
+
+--- Iterates over all two dimensions, from the given minimum point to the
+-- given maximum point.
+--
+-- @param minp The minimum point.
+-- @param maxp The maximum point.
+-- @param action The action to execute on every point.
+-- @param action_x Optional. The action to execute on every x step.
+function worldgenutil.iterate2d(minp, maxp, action, action_x)
+	for x = minp.x, maxp.x, 1 do
+		if action_x ~= nil then
+			action_x(x)
+		end
+		
+		for z = minp.z, maxp.z, 1 do
+			action(x, z)
+		end
+	end
+end
+
+--- Iterates over all three dimensions, from the given minimum point to the
+-- given maximum point.
+--
+-- @param minp The minimum point.
+-- @param maxp The maximum point.
+-- @param action The action to execute on every point.
+-- @param action_x Optional. The action to execute on every x step.
+-- @param action_z Optional. The action to execute on every z step.
+function worldgenutil.iterate3d(minp, maxp, action, action_x, action_z)
+	for x = minp.x, maxp.x, 1 do
+		if action_x ~= nil then
+			action_x(x)
+		end
+		
+		for z = minp.z, maxp.z, 1 do
+			if action_z ~= nil then
+				action_z(x, z)
+			end
+			
+			for y = minp.y, maxp.y, 1 do
+				action(x, z, y)
+			end
+		end
+	end
+end
 
