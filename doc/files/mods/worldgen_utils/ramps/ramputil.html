@@ -49,6 +49,10 @@
 
 	<li><strong>mods/worldgen_utils/ramps/ramputil.lua</strong></li>
 	
+	<li>
+		<a href="../../../../files/mods/worldgen_utils/worldgenutil.html">mods/worldgen_utils/worldgenutil.lua</a>
+	</li>
+
 </ul>
 
 
@@ -73,12 +77,27 @@
 
     <tr>
     <td class="name" nowrap><a href="#ramputil.create_inner_corner_nodebox">ramputil.create_inner_corner_nodebox</a>&nbsp;(detail)</td>
-    <td class="summary">Creates the nodebox for an innner corner.</td>
+    <td class="summary">Creates the nodebox for an inner corner.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#ramputil.create_inner_steep_corner_nodebox">ramputil.create_inner_steep_corner_nodebox</a>&nbsp;(detail)</td>
+    <td class="summary">Creates the nodebox for an inner steep corner.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#ramputil.create_lookup_table">ramputil.create_lookup_table</a>&nbsp;(node_name, ramp_name, inner_corner_name, outer_corner_name)</td>
+    <td class="summary">Creates the lookup table for the given nodes which is used by rampgen.</td>
     </tr>
 
     <tr>
     <td class="name" nowrap><a href="#ramputil.create_outer_corner_nodebox">ramputil.create_outer_corner_nodebox</a>&nbsp;(detail)</td>
     <td class="summary">Creates the nodebox for an outer corner.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#ramputil.create_outer_steep_corner_nodebox">ramputil.create_outer_steep_corner_nodebox</a>&nbsp;(detail)</td>
+    <td class="summary">Creates the nodebox for an outer steep corner.</td>
     </tr>
 
     <tr>
@@ -88,7 +107,12 @@
 
     <tr>
     <td class="name" nowrap><a href="#ramputil.create_ramp_nodebox">ramputil.create_ramp_nodebox</a>&nbsp;(detail)</td>
-    <td class="summary">Creates the nodebox for ramp.</td>
+    <td class="summary">Creates the nodebox for a ramp.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#ramputil.create_steep_ramp_nodebox">ramputil.create_steep_ramp_nodebox</a>&nbsp;(detail)</td>
+    <td class="summary">Creates the nodebox for a steep ramp.</td>
     </tr>
 
     <tr>
@@ -116,7 +140,7 @@
 
 <dt><a name="ramputil.create_inner_corner_nodebox"></a><strong>ramputil.create_inner_corner_nodebox</strong>&nbsp;(detail)</dt>
 <dd>
-Creates the nodebox for an innner corner. 
+Creates the nodebox for an inner corner. 
 
 
 <h3>Parameters</h3>
@@ -135,6 +159,76 @@ Creates the nodebox for an innner corner.
 
 <h3>Return value:</h3>
 The nodebox for an inner corner.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ramputil.create_inner_steep_corner_nodebox"></a><strong>ramputil.create_inner_steep_corner_nodebox</strong>&nbsp;(detail)</dt>
+<dd>
+Creates the nodebox for an inner steep corner. 
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  detail: The level of detail, basically how many steps the ramp will have.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+The nodebox for an inner steep corner.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ramputil.create_lookup_table"></a><strong>ramputil.create_lookup_table</strong>&nbsp;(node_name, ramp_name, inner_corner_name, outer_corner_name)</dt>
+<dd>
+Creates the lookup table for the given nodes which is used by rampgen. 
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  node_name: The name of the node,
+	</li>
+	
+	<li>
+	  ramp_name: The name of the ramp.
+	</li>
+	
+	<li>
+	  inner_corner_name: The name of the inner corner part.
+	</li>
+	
+	<li>
+	  outer_corner_name: The name of the outer corner part.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+The lookup table for these nodes.
 
 
 
@@ -164,6 +258,35 @@ Creates the nodebox for an outer corner.
 
 <h3>Return value:</h3>
 The nodebox for an outer corner.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ramputil.create_outer_steep_corner_nodebox"></a><strong>ramputil.create_outer_steep_corner_nodebox</strong>&nbsp;(detail)</dt>
+<dd>
+Creates the nodebox for an outer steep corner. 
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  detail: The level of detail, basically how many steps the ramp will have.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+The nodebox for an outer steep corner.
 
 
 
@@ -211,7 +334,7 @@ The node descriptions for the ramp, inner and outer corner.
 
 <dt><a name="ramputil.create_ramp_nodebox"></a><strong>ramputil.create_ramp_nodebox</strong>&nbsp;(detail)</dt>
 <dd>
-Creates the nodebox for ramp. 
+Creates the nodebox for a ramp. 
 
 
 <h3>Parameters</h3>
@@ -230,6 +353,35 @@ Creates the nodebox for ramp.
 
 <h3>Return value:</h3>
 The nodebox for a ramp.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="ramputil.create_steep_ramp_nodebox"></a><strong>ramputil.create_steep_ramp_nodebox</strong>&nbsp;(detail)</dt>
+<dd>
+Creates the nodebox for a steep ramp. 
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  detail: The level of detail, basically how many steps the ramp will have.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+The nodebox for a steep ramp.
 
 
 

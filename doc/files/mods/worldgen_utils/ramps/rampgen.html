@@ -49,6 +49,10 @@
 		<a href="../../../../files/mods/worldgen_utils/ramps/ramputil.html">mods/worldgen_utils/ramps/ramputil.lua</a>
 	</li>
 
+	<li>
+		<a href="../../../../files/mods/worldgen_utils/worldgenutil.html">mods/worldgen_utils/worldgenutil.lua</a>
+	</li>
+
 </ul>
 
 
@@ -77,6 +81,11 @@
     </tr>
 
     <tr>
+    <td class="name" nowrap><a href="#rampgen.is_air">rampgen.is_air</a>&nbsp;(node)</td>
+    <td class="summary">Checks if the given node is "air".</td>
+    </tr>
+
+    <tr>
     <td class="name" nowrap><a href="#rampgen.mask_value_equals">rampgen.mask_value_equals</a>&nbsp;(actual, mask)</td>
     <td class="summary">Equals function for the mask values.</td>
     </tr>
@@ -87,7 +96,7 @@
     </tr>
 
     <tr>
-    <td class="name" nowrap><a href="#rampgen.run_on_node">rampgen.run_on_node</a>&nbsp;(manipulator, x, z, y, is_air, nodes)</td>
+    <td class="name" nowrap><a href="#rampgen.run_on_node">rampgen.run_on_node</a>&nbsp;(manipulator, x, z, y, nodes)</td>
     <td class="summary">Creates a ramp (or not) on the given location.</td>
     </tr>
 
@@ -118,6 +127,35 @@ Initializes the templates.
 
 
 
+
+
+
+</dd>
+
+
+
+
+<dt><a name="rampgen.is_air"></a><strong>rampgen.is_air</strong>&nbsp;(node)</dt>
+<dd>
+Checks if the given node is "air". 
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  node: The node to check.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+true if the node is air.
 
 
 
@@ -197,7 +235,7 @@ Runs the RampGen and creates ramps in the world.
 
 
 
-<dt><a name="rampgen.run_on_node"></a><strong>rampgen.run_on_node</strong>&nbsp;(manipulator, x, z, y, is_air, nodes)</dt>
+<dt><a name="rampgen.run_on_node"></a><strong>rampgen.run_on_node</strong>&nbsp;(manipulator, x, z, y, nodes)</dt>
 <dd>
 Creates a ramp (or not) on the given location. 
 
@@ -219,10 +257,6 @@ Creates a ramp (or not) on the given location.
 	
 	<li>
 	  y: The y coordinate.
-	</li>
-	
-	<li>
-	  is_air: The function that is used to determine if a node is air.
 	</li>
 	
 	<li>

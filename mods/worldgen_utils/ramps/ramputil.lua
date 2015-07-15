@@ -29,7 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ramputil = {}
 
 
---- Creates the nodebox for an innner corner.
+--- Creates the nodebox for an inner corner.
 --
 -- @param detail The level of detail, basically how many steps the ramp will
 --               have.
@@ -40,6 +40,33 @@ function ramputil.create_inner_corner_nodebox(detail)
 	
 	for step = 0, detail - 1, 1 do
 		local corner = -0.5 + part * step
+		
+		table.insert(nodebox, {
+			corner, part * step - 0.5, -0.5,
+			0.5, part * step + part - 0.5, 0.5,
+		})
+		
+		table.insert(nodebox, {
+			-0.5, part * step - 0.5, corner,
+			corner, part * step + part - 0.5, 0.5,
+		})
+	end
+	
+	return nodebox
+end
+
+--- Creates the nodebox for an inner steep corner.
+--
+-- @param detail The level of detail, basically how many steps the ramp will
+--               have.
+-- @return The nodebox for an inner steep corner.
+function ramputil.create_inner_steep_corner_nodebox(detail)
+	local part = 1 / detail
+	local steep_part = 0.4 / detail
+	local nodebox = {}
+	
+	for step = 0, detail - 1, 1 do
+		local corner = -0.15 + steep_part * step
 		
 		table.insert(nodebox, {
 			corner, part * step - 0.5, -0.5,
@@ -103,6 +130,26 @@ function ramputil.create_outer_corner_nodebox(detail)
 	return nodebox
 end
 
+--- Creates the nodebox for an outer steep corner.
+--
+-- @param detail The level of detail, basically how many steps the ramp will
+--               have.
+-- @return The nodebox for an outer steep corner.
+function ramputil.create_outer_steep_corner_nodebox(detail)
+	local part = 1 / detail
+	local steep_part = 0.4 / detail
+	local nodebox = {}
+	
+	for step = 0, detail - 1, 1 do
+		table.insert(nodebox, {
+			-0.15 + steep_part * step, part * step - 0.5, steep_part * step - 0.15,
+			0.5, part * step + part - 0.5, 0.5,
+		})
+	end
+	
+	return nodebox
+end
+
 --- Creates ramps (ramp, inner and outer corner) for the given node.
 --
 -- @param node The node description (table), or the node name.
@@ -148,7 +195,7 @@ function ramputil.create_ramp_from_node(node, use_mesh, nodebox_detail)
 	return ramp, inner_corner, outer_corner
 end
 
---- Creates the nodebox for ramp.
+--- Creates the nodebox for a ramp.
 --
 -- @param detail The level of detail, basically how many steps the ramp will
 --               have.
@@ -166,6 +213,27 @@ function ramputil.create_ramp_nodebox(detail)
 	
 	return nodebox
 end
+
+--- Creates the nodebox for a steep ramp.
+--
+-- @param detail The level of detail, basically how many steps the ramp will
+--               have.
+-- @return The nodebox for a steep ramp.
+function ramputil.create_steep_ramp_nodebox(detail)
+	local part = 1 / detail
+	local steep_part = 0.4 / detail
+	local nodebox = {}
+	
+	for step = 0, detail - 1, 1 do
+		table.insert(nodebox, {
+			-0.5, part * step - 0.5, steep_part * step - 0.15,
+			0.5, part * step + part - 0.5, 0.5,
+		})
+	end
+	
+	return nodebox
+end
+
 
 --- Creates and registers ramps (ramp, inner and outer corner) for the given
 -- node.
