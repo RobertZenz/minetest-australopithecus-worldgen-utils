@@ -28,6 +28,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 base_path = minetest.get_modpath(minetest.get_current_modname())
 
 dofile(base_path .. "/worldgenutil.lua")
-dofile(base_path .. "/ramps/rampgen.lua")
+dofile(base_path .. "/ramps/rampplacer.lua")
 dofile(base_path .. "/ramps/ramputil.lua")
 
