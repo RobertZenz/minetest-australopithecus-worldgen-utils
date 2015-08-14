@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/worldgenutil.html">worldgenutil</a></li>
+  <li><strong>ramps.rampplacer</strong></li>
+  <li><a href="../modules/ramps.ramputil.html">ramps.ramputil</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>ramps.rampplacer</code></h1>
+<p>RampPlacer is an object that allows to place ramps in the world.</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#RampPlacer:new">RampPlacer:new ()</a></td>
+	<td class="summary">Creates a new instance of RampPlacer.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RampPlacer.is_air">RampPlacer.is_air (node)</a></td>
+	<td class="summary">Checks if the given node is "air".</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RampPlacer.mask_value_equals">RampPlacer.mask_value_equals (actual, mask)</a></td>
+	<td class="summary">Equals function for the mask values.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RampPlacer:place_ramp">RampPlacer:place_ramp (x, z, y, manipulator, template, node_info, below_air, above_air)</a></td>
+	<td class="summary">Places a ramp here if possible.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RampPlacer:register_ramp">RampPlacer:register_ramp (node, ramp_node, inner_corner_node, outer_corner_node, floor, ceiling)</a></td>
+	<td class="summary">Registers a ramp with this RampPlacer.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RampPlacer:run">RampPlacer:run (manipulator, minp, maxp)</a></td>
+	<td class="summary">Places ramps in the given area.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RampPlacer:run_on_node">RampPlacer:run_on_node (manipulator, x, z, y)</a></td>
+	<td class="summary">Places a ramp (or not) on the given location.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "RampPlacer:new"></a>
+    <strong>RampPlacer:new ()</strong>
+    </dt>
+    <dd>
+    Creates a new instance of RampPlacer.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+        A new instance of RampPlacer.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RampPlacer.is_air"></a>
+    <strong>RampPlacer.is_air (node)</strong>
+    </dt>
+    <dd>
+    Checks if the given node is "air".
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">node</span>
+         The node to check.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true if the node is air.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RampPlacer.mask_value_equals"></a>
+    <strong>RampPlacer.mask_value_equals (actual, mask)</strong>
+    </dt>
+    <dd>
+    Equals function for the mask values.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">actual</span>
+         The atual value, generated from the map.
+        </li>
+        <li><span class="parameter">mask</span>
+         The mask value, from the templates.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true if the values equal.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RampPlacer:place_ramp"></a>
+    <strong>RampPlacer:place_ramp (x, z, y, manipulator, template, node_info, below_air, above_air)</strong>
+    </dt>
+    <dd>
+    Places a ramp here if possible.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+         The x coordinate.
+        </li>
+        <li><span class="parameter">z</span>
+         The z coordinate.
+        </li>
+        <li><span class="parameter">y</span>
+         The y coordinate.
+        </li>
+        <li><span class="parameter">manipulator</span>
+         The manipulator.
+        </li>
+        <li><span class="parameter">template</span>
+         The ramp template to use.
+        </li>
+        <li><span class="parameter">node_info</span>
+         The node information to use.
+        </li>
+        <li><span class="parameter">below_air</span>
+         If the node is below air.
+        </li>
+        <li><span class="parameter">above_air</span>
+         If the node is above air.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true If a ramp is placed.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RampPlacer:register_ramp"></a>
+    <strong>RampPlacer:register_ramp (node, ramp_node, inner_corner_node, outer_corner_node, floor, ceiling)</strong>
+    </dt>
+    <dd>
+    Registers a ramp with this RampPlacer.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">node</span>
+         The base node.
+        </li>
+        <li><span class="parameter">ramp_node</span>
+         The ramp node.
+        </li>
+        <li><span class="parameter">inner_corner_node</span>
+         The inner corner node.
+        </li>
+        <li><span class="parameter">outer_corner_node</span>
+         The outer corner node.
+        </li>
+        <li><span class="parameter">floor</span>
+         If ramps should appear on the floor.
+        </li>
+        <li><span class="parameter">ceiling</span>
+         If ramps should appear on the ceiling.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RampPlacer:run"></a>
+    <strong>RampPlacer:run (manipulator, minp, maxp)</strong>
+    </dt>
+    <dd>
+    Places ramps in the given area.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">manipulator</span>
+         The MapManipulator to use.
+        </li>
+        <li><span class="parameter">minp</span>
+         The minimum point.
+        </li>
+        <li><span class="parameter">maxp</span>
+         The maximum point.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RampPlacer:run_on_node"></a>
+    <strong>RampPlacer:run_on_node (manipulator, x, z, y)</strong>
+    </dt>
+    <dd>
+    Places a ramp (or not) on the given location.
+
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">manipulator</span>
+         The MapManipulator to use.
+        </li>
+        <li><span class="parameter">x</span>
+         The x coordinate.
+        </li>
+        <li><span class="parameter">z</span>
+         The z coordinate.
+        </li>
+        <li><span class="parameter">y</span>
+         The y coordinate.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

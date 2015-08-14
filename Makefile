@@ -9,7 +9,7 @@ clean:
 
 .PHONY: doc
 doc:
-	luadoc -d $(doc) mods/worldgen_utils
+	ldoc --dir=$(doc) mods/worldgen_utils
 
 .SILENT .PHONY: test
 test: $(test)/*.lua

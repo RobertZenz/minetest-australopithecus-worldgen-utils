@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="$(kind=='Topics' and '' or 'nowrap'">
+  <li><a href="../modules/worldgenutil.html">worldgenutil</a></li>
+  <li><a href="../modules/ramps.rampplacer.html">ramps.rampplacer</a></li>
+  <li><strong>ramps.ramputil</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>ramps.ramputil</code></h1>
+<p>Utility functions for the creation and registration of ramps.</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#create_inner_corner_nodebox">create_inner_corner_nodebox (detail)</a></td>
+	<td class="summary">Creates the nodebox for an inner corner.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_inner_steep_corner_nodebox">create_inner_steep_corner_nodebox (detail)</a></td>
+	<td class="summary">Creates the nodebox for an inner steep corner.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_lookup_table">create_lookup_table (node_name, ramp_name, inner_corner_name, outer_corner_name)</a></td>
+	<td class="summary">Creates the lookup table for the given nodes which is used by rampgen.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_outer_corner_nodebox">create_outer_corner_nodebox (detail)</a></td>
+	<td class="summary">Creates the nodebox for an outer corner.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_outer_steep_corner_nodebox">create_outer_steep_corner_nodebox (detail)</a></td>
+	<td class="summary">Creates the nodebox for an outer steep corner.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_ramp_from_node">create_ramp_from_node (node, use_mesh, nodebox_detail)</a></td>
+	<td class="summary">Creates ramps (ramp, inner and outer corner) for the given node.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_ramp_nodebox">create_ramp_nodebox (detail)</a></td>
+	<td class="summary">Creates the nodebox for a ramp.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_steep_ramp_nodebox">create_steep_ramp_nodebox (detail)</a></td>
+	<td class="summary">Creates the nodebox for a steep ramp.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#register_ramps_for_node">register_ramps_for_node (node, base_name, use_mesh, nodebox_detail)</a></td>
+	<td class="summary">Creates and registers ramps (ramp, inner and outer corner) for the given
+ node.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "create_inner_corner_nodebox"></a>
+    <strong>create_inner_corner_nodebox (detail)</strong>
+    </dt>
+    <dd>
+    Creates the nodebox for an inner corner.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">detail</span>
+         The level of detail, basically how many steps the ramp will
+               have.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The nodebox for an inner corner.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_inner_steep_corner_nodebox"></a>
+    <strong>create_inner_steep_corner_nodebox (detail)</strong>
+    </dt>
+    <dd>
+    Creates the nodebox for an inner steep corner.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">detail</span>
+         The level of detail, basically how many steps the ramp will
+               have.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The nodebox for an inner steep corner.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_lookup_table"></a>
+    <strong>create_lookup_table (node_name, ramp_name, inner_corner_name, outer_corner_name)</strong>
+    </dt>
+    <dd>
+    Creates the lookup table for the given nodes which is used by rampgen.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">node_name</span>
+         The name of the node,
+        </li>
+        <li><span class="parameter">ramp_name</span>
+         The name of the ramp.
+        </li>
+        <li><span class="parameter">inner_corner_name</span>
+         The name of the inner corner part.
+        </li>
+        <li><span class="parameter">outer_corner_name</span>
+         The name of the outer corner part.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The lookup table for these nodes.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_outer_corner_nodebox"></a>
+    <strong>create_outer_corner_nodebox (detail)</strong>
+    </dt>
+    <dd>
+    Creates the nodebox for an outer corner.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">detail</span>
+         The level of detail, basically how many steps the ramp will
+               have.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The nodebox for an outer corner.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_outer_steep_corner_nodebox"></a>
+    <strong>create_outer_steep_corner_nodebox (detail)</strong>
+    </dt>
+    <dd>
+    Creates the nodebox for an outer steep corner.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">detail</span>
+         The level of detail, basically how many steps the ramp will
+               have.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The nodebox for an outer steep corner.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_ramp_from_node"></a>
+    <strong>create_ramp_from_node (node, use_mesh, nodebox_detail)</strong>
+    </dt>
+    <dd>
+    Creates ramps (ramp, inner and outer corner) for the given node.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">node</span>
+         The node description (table), or the node name.
+        </li>
+        <li><span class="parameter">use_mesh</span>
+         If the created nodes should use a mesh instead of nodeboxes.
+        </li>
+        <li><span class="parameter">nodebox_detail</span>
+         The detail level of the nodeboxes. Even if a mesh is
+                       used, the nodebox is still created for the collision
+                       box.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The node descriptions for the ramp, inner and outer corner.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_ramp_nodebox"></a>
+    <strong>create_ramp_nodebox (detail)</strong>
+    </dt>
+    <dd>
+    Creates the nodebox for a ramp.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">detail</span>
+         The level of detail, basically how many steps the ramp will
+               have.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The nodebox for a ramp.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_steep_ramp_nodebox"></a>
+    <strong>create_steep_ramp_nodebox (detail)</strong>
+    </dt>
+    <dd>
+    Creates the nodebox for a steep ramp.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">detail</span>
+         The level of detail, basically how many steps the ramp will
+               have.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The nodebox for a steep ramp.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "register_ramps_for_node"></a>
+    <strong>register_ramps_for_node (node, base_name, use_mesh, nodebox_detail)</strong>
+    </dt>
+    <dd>
+    Creates and registers ramps (ramp, inner and outer corner) for the given
+ node.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">node</span>
+         The node description (table), or the node name.
+        </li>
+        <li><span class="parameter">base_name</span>
+         The base name for the new nodes.
+        </li>
+        <li><span class="parameter">use_mesh</span>
+         If the created nodes should use a mesh instead of nodeboxes.
+        </li>
+        <li><span class="parameter">nodebox_detail</span>
+         The detail level of the nodeboxes. Even if a mesh is
+                       used, the nodebox is still created for the collision
+                       box.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        The lookup entry used by rampmaker. That's a table that holds
+         the three nodes.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
