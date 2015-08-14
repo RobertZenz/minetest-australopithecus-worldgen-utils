@@ -104,6 +104,7 @@ end
 -- @param manipulator The manipulator.
 -- @param template The ramp template to use.
 -- @param node_info The node information to use.
+-- @param node_mask The mask of the node.
 -- @param below_air If the node is below air.
 -- @param above_air If the node is above air.
 -- @return true If a ramp is placed.

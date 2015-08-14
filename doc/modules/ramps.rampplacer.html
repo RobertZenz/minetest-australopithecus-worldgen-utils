@@ -67,7 +67,7 @@
 	<td class="summary">Equals function for the mask values.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#RampPlacer:place_ramp">RampPlacer:place_ramp (x, z, y, manipulator, template, node_info, below_air, above_air)</a></td>
+	<td class="name" nowrap><a href="#RampPlacer:place_ramp">RampPlacer:place_ramp (x, z, y, manipulator, template, node_info, node_mask, below_air, above_air)</a></td>
 	<td class="summary">Places a ramp here if possible.</td>
 	</tr>
 	<tr>
@@ -164,7 +164,7 @@
 </dd>
     <dt>
     <a name = "RampPlacer:place_ramp"></a>
-    <strong>RampPlacer:place_ramp (x, z, y, manipulator, template, node_info, below_air, above_air)</strong>
+    <strong>RampPlacer:place_ramp (x, z, y, manipulator, template, node_info, node_mask, below_air, above_air)</strong>
     </dt>
     <dd>
     Places a ramp here if possible.
@@ -189,6 +189,9 @@
         </li>
         <li><span class="parameter">node_info</span>
          The node information to use.
+        </li>
+        <li><span class="parameter">node_mask</span>
+         The mask of the node.
         </li>
         <li><span class="parameter">below_air</span>
          If the node is below air.
