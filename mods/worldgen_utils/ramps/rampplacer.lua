@@ -218,9 +218,9 @@ end
 -- @param minp The minimum point.
 -- @param maxp The maximum point.
 function RampPlacer:run(manipulator, minp, maxp)
-	for y = minp.y, maxp.y, 1 do
-		for x = minp.x, maxp.x, 1 do
-			for z = minp.z, maxp.z, 1 do
+	for y = minp.y - 1, maxp.y + 1, 1 do
+		for x = minp.x - 1, maxp.x + 1, 1 do
+			for z = minp.z - 1, maxp.z + 1, 1 do
 				self:run_on_node(manipulator, x, z, y)
 			end
 		end
