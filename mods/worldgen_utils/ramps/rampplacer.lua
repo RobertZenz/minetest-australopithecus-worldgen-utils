@@ -34,6 +34,8 @@ RampPlacer = {}
 -- @return A new instance of RampPlacer.
 function RampPlacer:new()
 	local instance = {
+		air = nil,
+		air_likes = {},
 		inner_corner_template = {
 			is_corner = true,
 			key = "inner_corner",
@@ -71,18 +73,6 @@ function RampPlacer:new()
 end
 
 
---- Checks if the given node is "air".
---
--- @param node The node to check.
--- @return true if the node is air.
-function RampPlacer.is_air(node)
-	if RampPlacer.air == nil then
-		RampPlacer.air = minetest.get_content_id("air")
-	end
-	
-	return node == RampPlacer.air
-end
-
 --- Equals function for the mask values.
 --
 -- @param actual The atual value, generated from the map.
@@ -94,6 +84,18 @@ function RampPlacer.mask_value_equals(actual, mask)
 	end
 
 	return actual == mask
+end
+
+--- Checks if the given node is "air".
+--
+-- @param node The node to check.
+-- @return true if the node is air.
+function RampPlacer:is_air(node)
+	if self.air == nil then
+		self.air = minetest.get_content_id("air")
+	end
+	
+	return node == self.air or self.air_likes[node] == true
 end
 
 --- Places a ramp here if possible.
@@ -180,6 +182,15 @@ function RampPlacer:place_ramp(x, z, y, manipulator, template, node_info, node_m
 	return false
 end
 
+--- Allows to register nodes that are treated like air.
+--
+-- @param node The node to register as air like.
+function RampPlacer:register_air_like(node)
+	node = nodeutil.get_id(node)
+	
+	self.air_likes[node] = true
+end
+
 --- Registers a ramp with this RampPlacer.
 --
 -- @param node The base node.
@@ -189,18 +200,10 @@ end
 -- @param floor If ramps should appear on the floor.
 -- @param ceiling If ramps should appear on the ceiling.
 function RampPlacer:register_ramp(node, ramp_node, inner_corner_node, outer_corner_node, floor, ceiling)
-	if type(node) == "string" then
-		node = minetest.get_content_id(node)
-	end
-	if type(ramp_node) == "string" then
-		ramp_node = minetest.get_content_id(ramp_node)
-	end
-	if type(inner_corner_node) == "string" then
-		inner_corner_node = minetest.get_content_id(inner_corner_node)
-	end
-	if type(outer_corner_node) == "string" then
-		outer_corner_node = minetest.get_content_id(outer_corner_node)
-	end
+	node = nodeutil.get_id(node)
+	ramp_node = nodeutil.get_id(ramp_node)
+	inner_corner_node = nodeutil.get_id(inner_corner_node)
+	outer_corner_node = nodeutil.get_id(outer_corner_node)
 	
 	self.nodes[node] = {
 		ceiling = ceiling,
@@ -241,8 +244,8 @@ function RampPlacer:run_on_node(manipulator, x, z, y)
 		return
 	end
 	
-	local above_air = self.is_air(manipulator:get_node(x, z, y - 1))
-	local below_air = self.is_air(manipulator:get_node(x, z, y + 1))
+	local above_air = self:is_air(manipulator:get_node(x, z, y - 1))
+	local below_air = self:is_air(manipulator:get_node(x, z, y + 1))
 	
 	if node_info.param_floor ~= nil and not node_info.param_floor then
 		below_air = false;
@@ -260,14 +263,14 @@ function RampPlacer:run_on_node(manipulator, x, z, y)
 		--  -?    +?
 		--  -+ ?+ ++
 		local node_mask = {
-			self.is_air(manipulator:get_node(x - 1, z - 1, y)),
-			self.is_air(manipulator:get_node(x, z - 1, y)),
-			self.is_air(manipulator:get_node(x + 1, z - 1, y)),
-			self.is_air(manipulator:get_node(x + 1, z, y)),
-			self.is_air(manipulator:get_node(x + 1, z + 1, y)),
-			self.is_air(manipulator:get_node(x, z + 1, y)),
-			self.is_air(manipulator:get_node(x - 1, z + 1, y)),
-			self.is_air(manipulator:get_node(x - 1, z, y))
+			self:is_air(manipulator:get_node(x - 1, z - 1, y)),
+			self:is_air(manipulator:get_node(x, z - 1, y)),
+			self:is_air(manipulator:get_node(x + 1, z - 1, y)),
+			self:is_air(manipulator:get_node(x + 1, z, y)),
+			self:is_air(manipulator:get_node(x + 1, z + 1, y)),
+			self:is_air(manipulator:get_node(x, z + 1, y)),
+			self:is_air(manipulator:get_node(x - 1, z + 1, y)),
+			self:is_air(manipulator:get_node(x - 1, z, y))
 		}
 		
 		if not self:place_ramp(x, z, y, manipulator, self.ramp_template, node_info, node_mask, below_air, above_air) then

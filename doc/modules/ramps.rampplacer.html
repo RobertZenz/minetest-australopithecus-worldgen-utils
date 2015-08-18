@@ -38,9 +38,9 @@
 
 <h2>Modules</h2>
 <ul class="$(kind=='Topics' and '' or 'nowrap'">
-  <li><a href="../modules/worldgenutil.html">worldgenutil</a></li>
   <li><strong>ramps.rampplacer</strong></li>
   <li><a href="../modules/ramps.ramputil.html">ramps.ramputil</a></li>
+  <li><a href="../modules/worldgenutil.html">worldgenutil</a></li>
 </ul>
 
 </div>
@@ -59,16 +59,20 @@
 	<td class="summary">Creates a new instance of RampPlacer.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#RampPlacer.is_air">RampPlacer.is_air (node)</a></td>
-	<td class="summary">Checks if the given node is "air".</td>
-	</tr>
-	<tr>
 	<td class="name" nowrap><a href="#RampPlacer.mask_value_equals">RampPlacer.mask_value_equals (actual, mask)</a></td>
 	<td class="summary">Equals function for the mask values.</td>
 	</tr>
 	<tr>
+	<td class="name" nowrap><a href="#RampPlacer:is_air">RampPlacer:is_air (node)</a></td>
+	<td class="summary">Checks if the given node is "air".</td>
+	</tr>
+	<tr>
 	<td class="name" nowrap><a href="#RampPlacer:place_ramp">RampPlacer:place_ramp (x, z, y, manipulator, template, node_info, node_mask, below_air, above_air)</a></td>
 	<td class="summary">Places a ramp here if possible.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#RampPlacer:register_air_like">RampPlacer:register_air_like (node)</a></td>
+	<td class="summary">Allows to register nodes that are treated like air.</td>
 	</tr>
 	<tr>
 	<td class="name" nowrap><a href="#RampPlacer:register_ramp">RampPlacer:register_ramp (node, ramp_node, inner_corner_node, outer_corner_node, floor, ceiling)</a></td>
@@ -110,31 +114,6 @@
 
 </dd>
     <dt>
-    <a name = "RampPlacer.is_air"></a>
-    <strong>RampPlacer.is_air (node)</strong>
-    </dt>
-    <dd>
-    Checks if the given node is "air".
-
-
-    <h3>Parameters:</h3>
-    <ul>
-        <li><span class="parameter">node</span>
-         The node to check.
-        </li>
-    </ul>
-
-    <h3>Returns:</h3>
-    <ol>
-
-        true if the node is air.
-    </ol>
-
-
-
-
-</dd>
-    <dt>
     <a name = "RampPlacer.mask_value_equals"></a>
     <strong>RampPlacer.mask_value_equals (actual, mask)</strong>
     </dt>
@@ -156,6 +135,31 @@
     <ol>
 
         true if the values equal.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RampPlacer:is_air"></a>
+    <strong>RampPlacer:is_air (node)</strong>
+    </dt>
+    <dd>
+    Checks if the given node is "air".
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">node</span>
+         The node to check.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+        true if the node is air.
     </ol>
 
 
@@ -206,6 +210,26 @@
 
         true If a ramp is placed.
     </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "RampPlacer:register_air_like"></a>
+    <strong>RampPlacer:register_air_like (node)</strong>
+    </dt>
+    <dd>
+    Allows to register nodes that are treated like air.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">node</span>
+         The node to register as air like.
+        </li>
+    </ul>
+
 
 
 
