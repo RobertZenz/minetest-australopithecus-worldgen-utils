@@ -42,8 +42,10 @@ function worldgenutil.iterate2d(minp, maxp, action, action_x)
 			action_x(x)
 		end
 		
-		for z = minp.z, maxp.z, 1 do
-			action(x, z)
+		if action ~= nil then
+			for z = minp.z, maxp.z, 1 do
+				action(x, z)
+			end
 		end
 	end
 end
@@ -62,13 +64,17 @@ function worldgenutil.iterate3d(minp, maxp, action, action_x, action_z)
 			action_x(x)
 		end
 		
-		for z = minp.z, maxp.z, 1 do
-			if action_z ~= nil then
-				action_z(x, z)
-			end
-			
-			for y = minp.y, maxp.y, 1 do
-				action(x, z, y)
+		if action_z ~= nil and action ~= nil then
+			for z = minp.z, maxp.z, 1 do
+				if action_z ~= nil then
+					action_z(x, z)
+				end
+				
+				if action ~= nil then
+					for y = minp.y, maxp.y, 1 do
+						action(x, z, y)
+					end
+				end
 			end
 		end
 	end
