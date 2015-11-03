@@ -25,10 +25,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --]]
 
 
-base_path = minetest.get_modpath(minetest.get_current_modname())
+--- Utility functions for the creation and registration of corners.
+cornerutil = {}
 
-dofile(base_path .. "/worldgenutil.lua")
-dofile(base_path .. "/corners/cornerutil.lua")
-dofile(base_path .. "/ramps/rampplacer.lua")
-dofile(base_path .. "/ramps/ramputil.lua")
+
+--- Creates the nodebox for a corner.
+--
+-- @param detail The level of detail, basically how many steps the corner will
+--               have.
+-- @return The nodebox for a corner.
+function cornerutil.create_corner_nodebox(detail)
+	local part = 1 / detail
+	local nodebox = {}
+	
+	for step = 0, detail - 1, 1 do
+		table.insert(nodebox, {
+			0.5 - part * step, -0.5, part * step - 0.5,
+			0.5 - part * step - part, 0.5, 0.5
+		})
+	end
+	
+	return nodebox
+end
 
