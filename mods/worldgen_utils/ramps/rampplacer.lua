@@ -62,7 +62,10 @@ function RampPlacer:new()
 			-- n f n
 			-- f   f
 			-- n t n
-			mask = { nil, false, nil, false, nil, true, nil, false }
+			masks = {
+				{ nil, false, nil, false, nil, true, nil, false },
+				{ nil, false, nil, true, nil, true, nil, true }
+			}
 		}
 	}
 	
