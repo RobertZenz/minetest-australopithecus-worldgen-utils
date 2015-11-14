@@ -55,6 +55,27 @@ function ramputil.create_inner_corner_nodebox(detail)
 	return nodebox
 end
 
+--- Creates the nodebox for a flat inner corner.
+--
+-- @param detail The level of detail, basically how many steps the ramp will
+--               have.
+-- @return The nodebox for a flat inner corner.
+function ramputil.create_inner_corner_flat_nodebox(detail)
+	local part = 1 / detail
+	local nodebox = {}
+	
+	for step = 0, detail - 1, 1 do
+		for sec_step = 0, detail - 1, 1 do
+			table.insert(nodebox, {
+				-0.5 + part * math.max(sec_step - step, 0), 0.5 - step * part - part, 0.5 - part * sec_step,
+				0.5, 0.5 - step * part, 0.5 - part * sec_step - part
+			})
+		end
+	end
+	
+	return nodebox
+end
+
 --- Creates the nodebox for an inner steep corner.
 --
 -- @param detail The level of detail, basically how many steps the ramp will
@@ -109,6 +130,27 @@ function ramputil.create_lookup_table(node_name, ramp_name, inner_corner_name, o
 	ramp_lookup[outer_corner_id] = ramp_lookup[node_id]
 	
 	return ramp_lookup
+end
+
+--- Creates the nodebox for a flat outer corner.
+--
+-- @param detail The level of detail, basically how many steps the ramp will
+--               have.
+-- @return The nodebox for a flat outer corner.
+function ramputil.create_outer_corner_flat_nodebox(detail)
+	local part = 1 / detail
+	local nodebox = {}
+	
+	for step = 0, detail - 1, 1 do
+		for sec_step = 0, detail - step - 1, 1 do
+			table.insert(nodebox, {
+				part * sec_step + part * step - 0.5, -0.5 + step * part, 0.5 - part * sec_step,
+				0.5, -0.5 + step * part + part, 0.5 - part * sec_step - part
+			})
+		end
+	end
+	
+	return nodebox
 end
 
 --- Creates the nodebox for an outer corner.
