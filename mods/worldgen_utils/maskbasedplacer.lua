@@ -25,6 +25,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --]]
 
 
+
 MaskBasedPlacer = {
 	MASK_VALUE_IGNORE = -1,
 	
@@ -91,13 +92,63 @@ function MaskBasedPlacer.mask_equals(current_surroundings, expected_surroundings
 end
 
 function MaskBasedPlacer.rotate_rotation(rotation, count)
-	local changed_rotation = rotation or rotationutil.ROT_0
+	rotation = rotation or rotationutil.ROT_0
 	
 	for counter = 1, count, 1 do
-		changed_rotation = rotationutil.increment(changed_rotation)
+		rotation = rotationutil.increment(rotation)
 	end
 	
-	return changed_rotation
+	return rotation
+end
+
+function MaskBasedPlacer.test_nodes(definition, node_above, node_below)
+	return MaskBasedPlacer.test_node_single(node_above, definition.node_above)
+		and MaskBasedPlacer.test_node_single(node_below, definition.node_below)
+		and MaskBasedPlacer.test_node_multiple(node_above, definition.nodes_above)
+		and MaskBasedPlacer.test_node_multiple(node_below, definition.nodes_below)
+		and MaskBasedPlacer.test_node_single_not(node_above, definition.node_not_above)
+		and MaskBasedPlacer.test_node_single_not(node_below, definition.node_not_below)
+		and MaskBasedPlacer.test_node_multiple_not(node_above, definition.nodes_not_above)
+		and MaskBasedPlacer.test_node_multiple_not(node_below, definition.nodes_not_below)
+end
+
+function MaskBasedPlacer.test_node_multiple_not(node_to_test, expected_nodes)
+	if expected_nodes == nil then
+		return true
+	end
+	
+	for key, expected_node in pairs(expected_nodes) do
+		if node_to_test == expected_node then
+			return false
+		end
+	end
+	
+	return true
+end
+
+function MaskBasedPlacer.test_node_single_not(node_to_test, expected_node)
+	return expected_node == nil
+		or node_to_test ~= expected_node
+end
+
+
+function MaskBasedPlacer.test_node_multiple(node_to_test, expected_nodes)
+	if expected_nodes == nil then
+		return true
+	end
+	
+	for key, expected_node in pairs(expected_nodes) do
+		if node_to_test == expected_node then
+			return true
+		end
+	end
+	
+	return false
+end
+
+function MaskBasedPlacer.test_node_single(node_to_test, expected_node)
+	return expected_node == nil
+		or node_to_test == expected_node
 end
 
 function MaskBasedPlacer:register_node(definition)
@@ -201,67 +252,35 @@ function MaskBasedPlacer:run_on_coordinates(manipulator, x, z, y)
 	end
 	
 	definition:foreach(function(definition, index)
-		if not self:test_nodes(definition, node_above, node_below) then
-			return
+		local upside_down = false
+		
+		if not MaskBasedPlacer.test_nodes(definition, node_above, node_below) then
+			if definition.upside_down
+				and MaskBasedPlacer.test_nodes(definition, node_below, node_above) then
+				
+				upside_down = true
+			else
+				return
+			end
 		end
 		
 		local start_index = arrayutil.index(surrounding_nodes, definition.surroundings, MaskBasedPlacer.mask_equals, 2)
 		
 		if start_index >= 1 then
-			local rotation = MaskBasedPlacer.rotate_rotation(definition.initial_rotation, math.floor(start_index / 2))
+			local rotation = MaskBasedPlacer.rotate_rotation(
+				definition.initial_rotation,
+				math.floor(start_index / 2))
+			
+			if upside_down then
+				if rotation == facedirutil.POSITIVE_X then
+					rotation = rotationutil.increment(rotation)
+				end
+				
+				rotation = facedirutil.upsidedown(rotation)
+			end
 			
 			manipulator:set_node(x, z, y, definition.replacement_node, rotation)
 		end
 	end)
-end
-
-function MaskBasedPlacer:test_nodes(definition, node_above, node_below)
-	return self:test_node_single(node_above, definition.node_above)
-		and self:test_node_single(node_below, definition.node_below)
-		and self:test_node_multiple(node_above, definition.nodes_above)
-		and self:test_node_multiple(node_below, definition.nodes_below)
-		and self:test_node_single_not(node_above, definition.node_not_above)
-		and self:test_node_single_not(node_below, definition.node_not_below)
-		and self:test_node_multiple_not(node_above, definition.nodes_not_above)
-		and self:test_node_multiple_not(node_below, definition.nodes_not_below)
-end
-
-function MaskBasedPlacer:test_node_multiple_not(node_to_test, expected_nodes)
-	if expected_nodes == nil then
-		return true
-	end
-	
-	for key, expected_node in pairs(expected_nodes) do
-		if node_to_test == expected_node then
-			return false
-		end
-	end
-	
-	return true
-end
-
-function MaskBasedPlacer:test_node_single_not(node_to_test, expected_node)
-	return expected_node == nil
-		or node_to_test ~= expected_node
-end
-
-
-function MaskBasedPlacer:test_node_multiple(node_to_test, expected_nodes)
-	if expected_nodes == nil then
-		return true
-	end
-	
-	for key, expected_node in pairs(expected_nodes) do
-		if node_to_test == expected_node then
-			return true
-		end
-	end
-	
-	return false
-end
-
-function MaskBasedPlacer:test_node_single(node_to_test, expected_node)
-	return expected_node == nil
-		or node_to_test == expected_node
 end
 
