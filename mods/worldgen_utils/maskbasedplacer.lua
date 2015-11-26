@@ -272,11 +272,7 @@ function MaskBasedPlacer:run_on_coordinates(manipulator, x, z, y)
 				math.floor(start_index / 2))
 			
 			if upside_down then
-				if rotation == facedirutil.POSITIVE_X then
-					rotation = rotationutil.increment(rotation)
-				end
-				
-				rotation = facedirutil.upsidedown(rotation)
+				rotation = facedirutil.upsidedown(rotation, definition.upside_down_pseudo_mirroring)
 			end
 			
 			manipulator:set_node(x, z, y, definition.replacement_node, rotation)
