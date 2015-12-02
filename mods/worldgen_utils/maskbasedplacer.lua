@@ -110,6 +110,14 @@ function MaskBasedPlacer.test_nodes(definition, node_above, node_below)
 		and MaskBasedPlacer.test_node_single_not(node_below, definition.node_not_below)
 		and MaskBasedPlacer.test_node_multiple_not(node_above, definition.nodes_not_above)
 		and MaskBasedPlacer.test_node_multiple_not(node_below, definition.nodes_not_below)
+		and MaskBasedPlacer.test_node_name_single(node_above, definition.node_name_above)
+		and MaskBasedPlacer.test_node_name_single(node_below, definition.node_name_below)
+		and MaskBasedPlacer.test_node_name_multiple(node_above, definition.node_names_above)
+		and MaskBasedPlacer.test_node_name_multiple(node_below, definition.node_names_below)
+		and MaskBasedPlacer.test_node_name_single_not(node_above, definition.node_name_not_above)
+		and MaskBasedPlacer.test_node_name_single_not(node_below, definition.node_name_not_below)
+		and MaskBasedPlacer.test_node_name_multiple_not(node_above, definition.node_names_not_above)
+		and MaskBasedPlacer.test_node_name_multiple_not(node_below, definition.node_names_not_below)
 end
 
 function MaskBasedPlacer.test_node_multiple_not(node_to_test, expected_nodes)
@@ -126,11 +134,52 @@ function MaskBasedPlacer.test_node_multiple_not(node_to_test, expected_nodes)
 	return true
 end
 
+function MaskBasedPlacer.test_node_name_multiple(node_to_test, expected_nodes)
+	if expected_nodes == nil then
+		return true
+	end
+	
+	node_to_test = nodeutil.get_name(node_to_test)
+	
+	for key, expected_node in pairs(expected_nodes) do
+		if string.match(node_to_test, expected_node) == nil then
+			return false
+		end
+	end
+	
+	return true
+end
+
+function MaskBasedPlacer.test_node_name_multiple_not(node_to_test, expected_nodes)
+	if expected_nodes == nil then
+		return true
+	end
+	
+	node_to_test = nodeutil.get_name(node_to_test)
+	
+	for key, expected_node in pairs(expected_nodes) do
+		if string.match(node_to_test, expected_node) ~= nil then
+			return false
+		end
+	end
+	
+	return true
+end
+
+function MaskBasedPlacer.test_node_name_single(node_to_test, expected_node)
+	return expected_node == nil
+		or string.match(nodeutil.get_name(node_to_test), expected_node) ~= nil
+end
+
+function MaskBasedPlacer.test_node_name_single_not(node_to_test, expected_node)
+	return expected_node == nil
+		or string.match(nodeutil.get_name(node_to_test), expected_node) == nil
+end
+
 function MaskBasedPlacer.test_node_single_not(node_to_test, expected_node)
 	return expected_node == nil
 		or node_to_test ~= expected_node
 end
-
 
 function MaskBasedPlacer.test_node_multiple(node_to_test, expected_nodes)
 	if expected_nodes == nil then
