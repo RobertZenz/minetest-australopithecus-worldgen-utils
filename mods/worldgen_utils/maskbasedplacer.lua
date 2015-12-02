@@ -229,9 +229,9 @@ end
 
 function MaskBasedPlacer:run_on_coordinates(manipulator, x, z, y)
 	local current_node = manipulator:get_node(x, z, y)
-	local definition = self.nodes[current_node]
+	local definitions = self.nodes[current_node]
 	
-	if definition == nil then
+	if definitions == nil then
 		return
 	end
 	
@@ -251,7 +251,7 @@ function MaskBasedPlacer:run_on_coordinates(manipulator, x, z, y)
 		end
 	end
 	
-	definition:foreach(function(definition, index)
+	definitions:foreach(function(definition, index)
 		local upside_down = false
 		
 		if not MaskBasedPlacer.test_nodes(definition, node_above, node_below) then
@@ -276,6 +276,10 @@ function MaskBasedPlacer:run_on_coordinates(manipulator, x, z, y)
 			end
 			
 			manipulator:set_node(x, z, y, definition.replacement_node, rotation)
+			
+			if definition.after_place ~= nil then
+				definition.after_place(x, z, y, definition, rotation, upside_down, manipulator)
+			end
 		end
 	end)
 end
