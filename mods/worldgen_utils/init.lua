@@ -30,6 +30,7 @@ base_path = minetest.get_modpath(minetest.get_current_modname())
 dofile(base_path .. "/maskbasedplacer.lua")
 dofile(base_path .. "/worldgenutil.lua")
 dofile(base_path .. "/corners/cornerutil.lua")
+dofile(base_path .. "/pyramids/pyramidutil.lua")
 dofile(base_path .. "/ramps/rampplacer.lua")
 dofile(base_path .. "/ramps/ramputil.lua")
 
